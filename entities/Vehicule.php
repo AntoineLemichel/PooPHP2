@@ -1,22 +1,19 @@
 <?php
 
 declare(strict_types=1);
-class Vehicule
+
+abstract class Vehicule
 {
     protected $motors;
     protected $type;
     protected $door;
     protected $brand;
     protected $fuel;
-
-    public function __construct(array $array)
-    {
-        $this->hydrate($array);
-    }
+    protected $id;
 
     public function hydrate(array $array)
     {
-        foreach ($donnees as $key => $value) {
+        foreach ($array as $key => $value) {
             // On récupère le nom du setter correspondant à l'attribut.
             $method = 'set'.ucfirst($key);
 
@@ -31,6 +28,16 @@ class Vehicule
     /**
      * GETTERS.
      */
+
+    /**
+     * Getters for id.
+     *
+     * @return self
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Getters for motors.
@@ -86,6 +93,16 @@ class Vehicule
      * SETTERS
      */
 
+    public function setId($id)
+    {
+        $id = (int) $id;
+        if (is_int($id)) {
+            $this->id = $id;
+
+            return $this;
+        }
+    }
+
     /**
      * Setters for motor.
      *
@@ -127,7 +144,7 @@ class Vehicule
      *
      * @return self
      */
-    public function setDoor(int $door)
+    public function setDoor($door)
     {
         $door = (int) $door;
         if (is_int($door)) {
