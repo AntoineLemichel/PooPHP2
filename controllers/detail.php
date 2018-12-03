@@ -28,6 +28,7 @@ if (isset($_POST['update'])) {
                         'brand' => $_POST['brand'],
                         'motors' => $_POST['motors'],
                         'door' => $_POST['doors'],
+                        'fuel' => $_POST['fuel'],
                     ));
                 } else {
                     $message = "Door's field will not must be empty.";
@@ -38,9 +39,18 @@ if (isset($_POST['update'])) {
                 $opponentMotorBike->hydrate(array(
                         'brand' => $_POST['brand'],
                         'motors' => $_POST['motors'],
+                        'fuel' => $_POST['fuel'],
                     ));
-                var_dump($opponentMotorBike);
                 $vehiculeManager->updateMotorBike($opponentMotorBike);
+            } elseif ($_POST['type'] == 'Truck') {
+                $opponentTruck = $vehiculeManager->getVehicule($id);
+                $opponentTruck->hydrate(array(
+                    'brand' => $_POST['brand'],
+                    'motors' => $_POST['motors'],
+                    'door' => $_POST['doors'],
+                    'fuel' => $_POST['fuel'],
+                ));
+                $vehiculeManager->updateTruck($opponentTruck);
             }
             header('Location: index.php');
         } else {

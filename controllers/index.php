@@ -15,23 +15,34 @@ $db = Database::DB();
 $VehiculeManager = new VehiculeManager($db);
 $cars = $VehiculeManager->getCars();
 $motorBikes = $VehiculeManager->getMotorBikes();
+$trucks = $VehiculeManager->getTrucks();
 
 if (isset($_POST['deleteMotorBike'])) {
     $id = (int) $_GET['index'];
 
-    $opponentMotorBike = $VehiculeManager->getMotorBike($id);
+    $opponentMotorBike = $VehiculeManager->getVehicule($id);
 
     $VehiculeManager->deleteMotorBike($opponentMotorBike);
-    header('Location: '.$_SERVER['HTTP_REFERER']);
+    header('Location: index.php');
 } elseif (isset($_POST['deleteCar'])) {
     $id = (int) $_GET['index'];
 
-    $opponentCar = $VehiculeManager->getCar($id);
+    $opponentCar = $VehiculeManager->getVehicule($id);
     $VehiculeManager->deleteCar($opponentCar);
-    header('Location: '.$_SERVER['HTTP_REFERER']);
+    header('Location: index.php');
+} elseif (isset($_POST['deleteTruck'])) {
+    $id = (int) $_GET['index'];
+
+    $opponentTruck = $VehiculeManager->getVehicule($id);
+    $VehiculeManager->deleteTruck($opponentTruck);
+    header('Location: index.php');
 }
 
 if (isset($_POST['updateCar'])) {
+    header('Location: detail.php?index='.$_GET['index']);
+} elseif (isset($_POST['updateMotorBike'])) {
+    header('Location: detail.php?index='.$_GET['index']);
+} elseif (isset($_POST['updateTruck'])) {
     header('Location: detail.php?index='.$_GET['index']);
 }
 

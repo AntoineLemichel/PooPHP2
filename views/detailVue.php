@@ -19,6 +19,11 @@
         </label>
     </div>
     <div class="form-group">
+        <label for="brand">Fuel:
+            <input type="text" value="<?= $updateVehicule->getFuel(); ?>" placeholder="Fuel" id="fuel" name="fuel" class="form-control">
+        </label>
+    </div>
+    <div class="form-group">
         <label for="brand">Brand:
             <input type="text" value="<?= $updateVehicule->getBrand(); ?>" placeholder="Brand" id="brand" name="brand" class="form-control">
         </label>
