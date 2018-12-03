@@ -10,7 +10,6 @@ function loadClass($classname)
     }
 }
 spl_autoload_register('loadClass');
-
 $db = Database::DB();
 
 $VehiculeManager = new VehiculeManager($db);
@@ -31,4 +30,9 @@ if (isset($_POST['deleteMotorBike'])) {
     $VehiculeManager->deleteCar($opponentCar);
     header('Location: '.$_SERVER['HTTP_REFERER']);
 }
+
+if (isset($_POST['updateCar'])) {
+    header('Location: detail.php?index='.$_GET['index']);
+}
+
 include '../views/indexVue.php';

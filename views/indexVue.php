@@ -1,5 +1,8 @@
 <?php
   include 'template/header.php';
+  if (isset($message)) {
+      echo '<p>'.$message.'</p>';
+  }
 ?>
 
 <h2>Cars</h2>
@@ -26,8 +29,9 @@ foreach ($cars as $car) {
     <td><?= $car->carMotors(); ?></td>
     <td>
     <form action="index.php?index=<?= $car->carId(); ?>" method="POST">
-       <input type="submit" name="deleteCar" value="Delete">
-     </form>
+       <input type="submit" name="deleteCar" value="Delete" class="btn btn-dark">
+       <input type="submit" name="updateCar" value="Update" class="btn btn-dark">
+    </form>
   </td>
   </tr>
   <?php
@@ -57,8 +61,10 @@ foreach ($motorBikes as $motorBike) {
     <td><?= $motorBike->motorBikeFuel(); ?></td>
     <td><?= $motorBike->motorBikeMotors(); ?></td>
     <td>
-     <form action="index.php?index=<?= $motorBike->motorBikeId(); ?>" method="POST">
-       <input type="submit" name="deleteMotorBike" value="Delete">
+     <form action="detail.php?index=<?= $motorBike->motorBikeId(); ?>" method="POST">
+       <input type="submit" name="deleteMotorBike" value="Delete" class="btn btn-dark">
+       <input type="submit" name="updateMotorBike" value="Update" class="btn btn-dark">
+
      </form>
   </td>
   </tr>

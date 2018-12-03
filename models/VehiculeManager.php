@@ -42,6 +42,10 @@ class VehiculeManager
     }
 
     /**
+     * All query for Cars.
+     */
+
+    /**
      * Get all cars into database.
      *
      * @return array $arrayOfCars
@@ -62,7 +66,14 @@ class VehiculeManager
         return $arrayOfCars;
     }
 
-    public function getCar($info)
+    /**
+     * Select one car into database.
+     *
+     * @param array $info
+     *
+     * @return new Car
+     */
+    public function getVehicule($info)
     {
         $queryCar = $this->getDb()->prepare('SELECT * FROM vehicules WHERE id = :id');
         $queryCar->bindValue(':id', $info, PDO::PARAM_INT);
@@ -70,15 +81,39 @@ class VehiculeManager
 
         $dataCar = $queryCar->fetch(PDO::FETCH_ASSOC);
 
-        return new Car($dataCar);
+        if ($dataCar['type'] == 'Car') {
+            return new Car($dataCar);
+        } elseif ($dataCar['type'] == 'MotorBike') {
+            return new MotorBike($dataCar);
+        }
     }
 
+    /**
+     * Delete car into database.
+     *
+     * @param Car $opponent
+     */
     public function deleteCar(Car $opponent)
     {
         $queryCar = $this->getDb()->prepare('DELETE FROM vehicules WHERE id = :id');
         $queryCar->bindValue(':id', $opponent->getId(), PDO::PARAM_INT);
         $queryCar->execute();
     }
+
+    public function updateCar(Car $opponent)
+    {
+        $queryCar = $this->getDb()->prepare('UPDATE vehicules SET motors = :motors, brand = :brand, door = :door WHERE id = :id');
+        $queryCar->bindValue(':id', $opponent->getId(), PDO::PARAM_INT);
+        $queryCar->bindValue(':motors', $opponent->getMotors(), PDO::PARAM_STR);
+        $queryCar->bindValue(':brand', $opponent->getBrand(), PDO::PARAM_STR);
+        $queryCar->bindValue(':door', $opponent->getDoor(), PDO::PARAM_INT);
+
+        $queryCar->execute();
+    }
+
+    /**
+     * All query for motorbikes.
+     */
 
     /**
      * Get all motor bike into datase.
@@ -101,13 +136,13 @@ class VehiculeManager
         return $arrayMotorBikes;
     }
 
-    public function deleteMotorBike(MotorBike $opponent)
-    {
-        $queryDeleteMotorBikes = $this->getDb()->prepare('DELETE FROM vehicules WHERE id = :id');
-        $queryDeleteMotorBikes->bindValue(':id', $opponent->getId(), PDO::PARAM_INT);
-        $queryDeleteMotorBikes->execute();
-    }
-
+    /**
+     * Get one motorbike into database.
+     *
+     * @param arry $info
+     *
+     * @return new Motorbike
+     */
     public function getMotorBike($info)
     {
         $queryMotorBike = $this->getDb()->prepare('SELECT * FROM vehicules WHERE id = :id');
@@ -117,5 +152,27 @@ class VehiculeManager
         $dataMotorBike = $queryMotorBike->fetch(PDO::FETCH_ASSOC);
 
         return new MotorBike($dataMotorBike);
+    }
+
+    /**
+     * Delete motorbike into database.
+     *
+     * @param MotorBike $opponent
+     */
+    public function deleteMotorBike(MotorBike $opponent)
+    {
+        $queryDeleteMotorBikes = $this->getDb()->prepare('DELETE FROM vehicules WHERE id = :id');
+        $queryDeleteMotorBikes->bindValue(':id', $opponent->getId(), PDO::PARAM_INT);
+        $queryDeleteMotorBikes->execute();
+    }
+
+    public function updateMotorBike(MotorBike $opponent)
+    {
+        $queryMotorBike = $this->getDb()->prepare('UPDATE vehicules SET motors = :motors, brand = :brand WHERE id = :id');
+        $queryMotorBike->bindValue(':id', $opponent->getId(), PDO::PARAM_INT);
+        $queryMotorBike->bindValue(':motors', $opponent->getMotors(), PDO::PARAM_STR);
+        $queryMotorBike->bindValue(':brand', $opponent->getBrand(), PDO::PARAM_STR);
+
+        $queryMotorBike->execute();
     }
 }
