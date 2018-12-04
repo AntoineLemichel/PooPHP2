@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
         <label for="doors">Doors:
-            <input type="text" value="<?= $updateVehicule->getDoor(); ?>" placeholder="Doors" id="doors" name="doors" class="form-control">
+            <input type="number" value="<?= $updateVehicule->getDoor(); ?>" placeholder="Doors" id="doors" name="doors" class="form-control">
         </label>
     </div>
     <div class="form-group">

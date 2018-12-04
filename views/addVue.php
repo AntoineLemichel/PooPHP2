@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
         <label for="doors">Doors:
-            <input type="text" placeholder="Doors" id="doors" name="doors" class="form-control">
+            <input type="number" placeholder="Doors" id="doors" name="doors" class="form-control">
         </label>
     </div>
     <div class="form-group">
